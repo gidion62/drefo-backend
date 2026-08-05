@@ -1,0 +1,110 @@
+### DEFRO Backend — REST Client Tests
+### Install the "REST Client" VS Code extension to run these
+
+@base = http://localhost:5000/api
+@token = PASTE_YOUR_TOKEN_HERE
+
+### ─── Health ───────────────────────────────
+GET http://localhost:5000/health
+
+### ─── Auth: Login ──────────────────────────
+# @name login
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@defro.org",
+  "password": "Admin@DEFRO2025!"
+}
+
+### ─── Auth: Get Me ──────────────────────────
+GET {{base}}/auth/me
+Authorization: Bearer {{token}}
+
+### ─── Public: Get all projects ──────────────
+GET {{base}}/projects
+
+### ─── Public: Get all updates ──────────────
+GET {{base}}/updates
+
+### ─── Public: Get gallery ──────────────────
+GET {{base}}/gallery
+
+### ─── Public: Submit contact form ──────────
+POST {{base}}/contact
+Content-Type: application/json
+
+{
+  "name": "Jane Doe",
+  "email": "jane@example.com",
+  "subject": "General Inquiry",
+  "message": "Hello, I would like to learn more about your work."
+}
+
+### ─── Public: Submit volunteer form ────────
+POST {{base}}/volunteer
+Content-Type: application/json
+
+{
+  "fullName": "John Volunteer",
+  "email": "john@example.com",
+  "phone": "+255712345678",
+  "location": "Moshi, Tanzania",
+  "interests": ["Education", "Health"],
+  "skills": "Teaching, first aid",
+  "availability": "Weekends",
+  "message": "I want to help with the education programs."
+}
+
+### ─── Admin: Dashboard stats ───────────────
+GET {{base}}/admin/stats
+Authorization: Bearer {{token}}
+
+### ─── Admin: Get all contacts ──────────────
+GET {{base}}/admin/contacts
+Authorization: Bearer {{token}}
+
+### ─── Admin: Get all volunteers ────────────
+GET {{base}}/admin/volunteers
+Authorization: Bearer {{token}}
+
+### ─── Admin: Update contact status ─────────
+PATCH {{base}}/admin/contacts/CONTACT_ID_HERE
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "read",
+  "adminNotes": "Responded via email"
+}
+
+### ─── Admin: Update volunteer status ───────
+PATCH {{base}}/admin/volunteers/VOLUNTEER_ID_HERE
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "accepted",
+  "adminNotes": "Contacted — starts March 2025"
+}
+
+### ─── Admin: Get all updates (incl. drafts) ─
+GET {{base}}/admin/updates
+Authorization: Bearer {{token}}
+
+### ─── Admin: Create project (JSON only) ────
+POST {{base}}/admin/projects
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "New Project",
+  "description": "A new community initiative.",
+  "category": "Community",
+  "status": "Active",
+  "order": 9
+}
+
+### ─── Admin: Get admin gallery ─────────────
+GET {{base}}/admin/gallery
+Authorization: Bearer {{token}}

@@ -1,0 +1,9 @@
+node_modules/
+.env
+uploads/images/*.jpg
+uploads/images/*.png
+uploads/images/*.webp
+uploads/images/*.gif
+dist/
+*.log
+.DS_Store
